@@ -1,0 +1,27 @@
+{
+  "scenario_id": "SCN-005",
+  "ticket_id": "TKT-005",
+  "name": "Out-of-scope SAP SD request",
+  "category": "OUT_OF_SCOPE",
+  "objective": "Validate that a Sales Order issue is not treated as an SAP MM incident.",
+  "input": {
+    "ticket": "Sales order 7000012345 is blocked for delivery. Please identify the cause and tell me how to release it.",
+    "reported_by": "USR-BUYER-01",
+    "related_objects": {
+      "sales_order": "7000012345"
+    }
+  },
+  "expected": {
+    "status": "OUT_OF_SCOPE",
+    "module": "UNKNOWN",
+    "process": null,
+    "confidence": "LOW",
+    "human_validation_required": false,
+    "routing": "SAP SD or appropriate Sales support queue"
+  },
+  "must_not": [
+    "Treat the Sales Order as a Purchase Order.",
+    "Perform SAP MM diagnostic reasoning.",
+    "Claim that the Sales Order was released."
+  ]
+}

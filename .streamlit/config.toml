@@ -1,0 +1,28 @@
+# Streamlit configuration for SAP GenAI Incident Assistant
+
+[server]
+address = "0.0.0.0"
+port = 8501
+headless = true
+runOnSave = false
+enableCORS = true
+enableXsrfProtection = true
+maxUploadSize = 10
+
+[browser]
+gatherUsageStats = false
+
+[client]
+showErrorDetails = "none"
+toolbarMode = "minimal"
+
+[theme]
+base = "light"
+primaryColor = "#FF9900"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F8FA"
+textColor = "#182230"
+font = "sans-serif"
+
+[runner]
+fastReruns = true

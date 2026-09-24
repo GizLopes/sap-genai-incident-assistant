@@ -1,0 +1,66 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  operational-tests:
+    name: Operational Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Validate Python syntax
+        run: |
+          python -m compileall -q app models integrations scripts evaluation operational_tests
+
+      - name: Validate mock SAP data
+        run: |
+          python scripts/seed_mock_data.py
+
+      - name: Run operational tests
+        env:
+          AWS_REGION: us-east-1
+          ENVIRONMENT: test
+          SAP_MODULE: MM
+          USE_MOCK_SAP: "true"
+          ENABLE_AUDIT_LOGGING: "false"
+        run: |
+          pytest operational_tests -q
+
+      - name: Run deterministic evaluation
+        run: |
+          python scripts/run_evaluation.py             --results evidence/test_results.json             --dataset evaluation/dataset.json             --output evidence/ci_evaluation_results.json
+
+      - name: Upload evaluation artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-genai-evaluation-results
+          path: evidence/ci_evaluation_results.json
+          if-no-files-found: warn
+          retention-days: 14

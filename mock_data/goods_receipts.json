@@ -1,0 +1,41 @@
+[
+  {
+    "document_number": "5000001001",
+    "po_number": "4500012346",
+    "po_item": "00010",
+    "material_id": "MAT-200",
+    "quantity": 50,
+    "unit": "EA",
+    "movement_type": "101",
+    "plant": "BR01",
+    "posted_by": "USR-WH-01",
+    "posting_status": "POSTED",
+    "reversed": false
+  },
+  {
+    "document_number": "5000001002",
+    "po_number": "4500012347",
+    "po_item": "00010",
+    "material_id": "MAT-300",
+    "quantity": 15,
+    "unit": "EA",
+    "movement_type": "101",
+    "plant": "BR02",
+    "posted_by": "USR-WH-01",
+    "posting_status": "POSTED",
+    "reversed": false
+  },
+  {
+    "document_number": "5000001003",
+    "po_number": "4500012348",
+    "po_item": "00010",
+    "material_id": "MAT-400",
+    "quantity": 10,
+    "unit": "EA",
+    "movement_type": "101",
+    "plant": "BR01",
+    "posted_by": "USR-WH-01",
+    "posting_status": "POSTED",
+    "reversed": false
+  }
+]

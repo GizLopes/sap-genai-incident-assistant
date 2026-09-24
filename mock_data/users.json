@@ -1,0 +1,76 @@
+[
+  {
+    "user_id": "USR-BUYER-01",
+    "display_name": "POC Buyer 01",
+    "role": "BUYER",
+    "allowed_activities": [
+      "DISPLAY_PURCHASE_REQUISITION",
+      "DISPLAY_PURCHASE_ORDER",
+      "CREATE_PURCHASE_ORDER"
+    ],
+    "can_release_po": false,
+    "can_post_goods_receipt": false,
+    "can_post_invoice": false
+  },
+  {
+    "user_id": "USR-APPROVER-01",
+    "display_name": "POC Approver 01",
+    "role": "PURCHASING_APPROVER",
+    "allowed_activities": [
+      "DISPLAY_PURCHASE_ORDER",
+      "RELEASE_PURCHASE_ORDER"
+    ],
+    "can_release_po": true,
+    "can_post_goods_receipt": false,
+    "can_post_invoice": false
+  },
+  {
+    "user_id": "USR-APPROVER-02",
+    "display_name": "POC Approver 02",
+    "role": "PURCHASING_APPROVER",
+    "allowed_activities": [
+      "DISPLAY_PURCHASE_ORDER",
+      "RELEASE_PURCHASE_ORDER"
+    ],
+    "can_release_po": true,
+    "can_post_goods_receipt": false,
+    "can_post_invoice": false
+  },
+  {
+    "user_id": "USR-WH-01",
+    "display_name": "POC Warehouse 01",
+    "role": "WAREHOUSE_OPERATOR",
+    "allowed_activities": [
+      "DISPLAY_PURCHASE_ORDER",
+      "DISPLAY_GOODS_RECEIPT",
+      "POST_GOODS_RECEIPT"
+    ],
+    "can_release_po": false,
+    "can_post_goods_receipt": true,
+    "can_post_invoice": false
+  },
+  {
+    "user_id": "USR-AP-01",
+    "display_name": "POC Accounts Payable 01",
+    "role": "ACCOUNTS_PAYABLE",
+    "allowed_activities": [
+      "DISPLAY_PURCHASE_ORDER",
+      "DISPLAY_INVOICE",
+      "POST_INVOICE"
+    ],
+    "can_release_po": false,
+    "can_post_goods_receipt": false,
+    "can_post_invoice": true
+  },
+  {
+    "user_id": "USR-LIMITED-01",
+    "display_name": "POC Limited User 01",
+    "role": "DISPLAY_ONLY",
+    "allowed_activities": [
+      "DISPLAY_PURCHASE_ORDER"
+    ],
+    "can_release_po": false,
+    "can_post_goods_receipt": false,
+    "can_post_invoice": false
+  }
+]

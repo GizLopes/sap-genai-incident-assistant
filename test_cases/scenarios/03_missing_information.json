@@ -1,0 +1,28 @@
+{
+  "scenario_id": "SCN-003",
+  "ticket_id": "TKT-003",
+  "name": "Missing information",
+  "category": "MISSING_INFORMATION",
+  "objective": "Validate that the assistant requests diagnostic context instead of guessing a root cause.",
+  "input": {
+    "ticket": "I cannot continue with the purchase order. SAP shows an error when I try to process it.",
+    "reported_by": "USR-BUYER-01",
+    "related_objects": {}
+  },
+  "expected": {
+    "status": "NEEDS_CLARIFICATION",
+    "module": "MM",
+    "process": "Purchase Order",
+    "confidence": "LOW",
+    "human_validation_required": false,
+    "required_questions": [
+      "What is the Purchase Order number?",
+      "What is the exact SAP error message?"
+    ]
+  },
+  "must_not": [
+    "Diagnose release strategy without evidence.",
+    "Diagnose an authorization failure without evidence.",
+    "Invent a Purchase Order number."
+  ]
+}

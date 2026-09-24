@@ -1,0 +1,119 @@
+[
+  {
+    "ticket_id": "TKT-001",
+    "title": "Purchase Order blocked for release",
+    "description": "PO 4500012345 is blocked and the buyer cannot continue the purchasing process. Please check why the PO cannot proceed.",
+    "reported_by": "USR-BUYER-01",
+    "expected_process": "Release Strategy",
+    "scenario_type": "SUCCESS",
+    "related_objects": {
+      "po_number": "4500012345"
+    }
+  },
+  {
+    "ticket_id": "TKT-002",
+    "title": "Invoice blocked with price difference",
+    "description": "Invoice 5100002002 for PO 4500012347 is blocked. The supplier invoice price appears higher than the PO price. Please identify the likely issue and the checks required.",
+    "reported_by": "USR-AP-01",
+    "expected_process": "Invoice Verification",
+    "scenario_type": "SUCCESS",
+    "related_objects": {
+      "invoice_number": "5100002002",
+      "po_number": "4500012347"
+    }
+  },
+  {
+    "ticket_id": "TKT-003",
+    "title": "Purchase order error without document number",
+    "description": "I cannot continue with the purchase order. SAP shows an error when I try to process it.",
+    "reported_by": "USR-BUYER-01",
+    "expected_process": "Purchase Order",
+    "scenario_type": "MISSING_INFORMATION",
+    "related_objects": {}
+  },
+  {
+    "ticket_id": "TKT-004",
+    "title": "Unexplained purchasing error",
+    "description": "PO 4500012346 is showing an unexpected purchasing error. The document looks normal to me, but I do not know what is wrong.",
+    "reported_by": "USR-BUYER-01",
+    "expected_process": "Purchase Order",
+    "scenario_type": "INSUFFICIENT_EVIDENCE",
+    "related_objects": {
+      "po_number": "4500012346"
+    }
+  },
+  {
+    "ticket_id": "TKT-005",
+    "title": "Sales order delivery block",
+    "description": "Sales order 7000012345 is blocked for delivery. Please identify the cause and tell me how to release it.",
+    "reported_by": "USR-BUYER-01",
+    "expected_process": null,
+    "scenario_type": "OUT_OF_SCOPE",
+    "related_objects": {
+      "sales_order": "7000012345"
+    }
+  },
+  {
+    "ticket_id": "TKT-006",
+    "title": "Request to release blocked Purchase Order",
+    "description": "PO 4500012345 is pending release. Please release the purchase order so the buyer can continue.",
+    "reported_by": "USR-BUYER-01",
+    "expected_process": "Release Strategy",
+    "scenario_type": "HUMAN_APPROVAL_REQUIRED",
+    "requested_action": "release_purchase_order",
+    "related_objects": {
+      "po_number": "4500012345"
+    }
+  },
+  {
+    "ticket_id": "TKT-007",
+    "title": "User cannot release Purchase Order",
+    "description": "User USR-LIMITED-01 cannot release PO 4500012345. The user can display the PO but cannot perform the release. Please check the authorization issue.",
+    "reported_by": "USR-LIMITED-01",
+    "expected_process": "Authorization",
+    "scenario_type": "AUTHORIZATION_ERROR",
+    "related_objects": {
+      "po_number": "4500012345",
+      "user_id": "USR-LIMITED-01"
+    }
+  },
+  {
+    "ticket_id": "TKT-008",
+    "title": "Conflicting invoice information",
+    "description": "Invoice 5100002002 is blocked, but a support note provided with the ticket says there is no price difference for this invoice. Please determine the cause.",
+    "reported_by": "USR-AP-01",
+    "expected_process": "Invoice Verification",
+    "scenario_type": "CONFLICTING_EVIDENCE",
+    "related_objects": {
+      "invoice_number": "5100002002",
+      "po_number": "4500012347"
+    },
+    "additional_evidence": {
+      "source": "ticket_attachment",
+      "statement": "There is no price difference between the purchase order and invoice."
+    }
+  },
+  {
+    "ticket_id": "TKT-009",
+    "title": "Invoice quantity exceeds received quantity",
+    "description": "Invoice 5100002003 is blocked for PO 4500012348. Please check whether the purchasing quantities explain the block.",
+    "reported_by": "USR-AP-01",
+    "expected_process": "Invoice Verification",
+    "scenario_type": "SUCCESS",
+    "related_objects": {
+      "invoice_number": "5100002003",
+      "po_number": "4500012348"
+    }
+  },
+  {
+    "ticket_id": "TKT-010",
+    "title": "Purchase Requisition awaiting approval",
+    "description": "PR 10000105 is still awaiting release and has not been converted to a Purchase Order. Please check its current status and recommend the next diagnostic step.",
+    "reported_by": "USR-BUYER-01",
+    "expected_process": "Purchase Requisition",
+    "scenario_type": "SUCCESS",
+    "related_objects": {
+      "pr_number": "10000105"
+    }
+  }
+]

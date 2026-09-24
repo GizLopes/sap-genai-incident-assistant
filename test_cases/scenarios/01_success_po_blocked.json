@@ -1,0 +1,36 @@
+{
+  "scenario_id": "SCN-001",
+  "ticket_id": "TKT-001",
+  "name": "Purchase Order blocked for release",
+  "category": "SUCCESS",
+  "objective": "Validate grounded identification of a pending PO release without inventing approval rules.",
+  "input": {
+    "ticket": "PO 4500012345 is blocked and the buyer cannot continue the purchasing process. Please check why the PO cannot proceed.",
+    "reported_by": "USR-BUYER-01",
+    "related_objects": {
+      "po_number": "4500012345"
+    }
+  },
+  "mock_context": {
+    "po_number": "4500012345",
+    "release_status": "PENDING",
+    "status": "BLOCKED_FOR_RELEASE"
+  },
+  "expected": {
+    "status": "COMPLETED",
+    "module": "MM",
+    "process": "Release Strategy",
+    "confidence": "HIGH",
+    "human_validation_required": false,
+    "evidence_ids": [
+      "KB-MM-002",
+      "KB-MM-003"
+    ],
+    "possible_cause": "The Purchase Order is waiting for completion of the release or approval process."
+  },
+  "must_not": [
+    "Invent a monetary approval threshold.",
+    "Invent the responsible approver.",
+    "Claim that the Purchase Order was released."
+  ]
+}

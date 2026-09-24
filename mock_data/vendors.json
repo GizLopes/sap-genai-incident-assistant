@@ -1,0 +1,34 @@
+[
+  {
+    "vendor_id": "V1001",
+    "name": "Atlas Industrial Components Ltd.",
+    "country": "BR",
+    "status": "ACTIVE",
+    "purchasing_block": false,
+    "payment_block": false
+  },
+  {
+    "vendor_id": "V1002",
+    "name": "Nova Hydraulic Supplies Ltd.",
+    "country": "BR",
+    "status": "ACTIVE",
+    "purchasing_block": false,
+    "payment_block": false
+  },
+  {
+    "vendor_id": "V1003",
+    "name": "Orion Controls Manufacturing Ltd.",
+    "country": "US",
+    "status": "ACTIVE",
+    "purchasing_block": false,
+    "payment_block": false
+  },
+  {
+    "vendor_id": "V1004",
+    "name": "Legacy Parts Supplier Ltd.",
+    "country": "BR",
+    "status": "BLOCKED",
+    "purchasing_block": true,
+    "payment_block": false
+  }
+]

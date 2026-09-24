@@ -1,0 +1,39 @@
+{
+  "scenario_id": "SCN-002",
+  "ticket_id": "TKT-002",
+  "name": "Invoice blocked with price variance",
+  "category": "SUCCESS",
+  "objective": "Validate grounded invoice analysis using PO and invoice prices without inventing tolerance configuration.",
+  "input": {
+    "ticket": "Invoice 5100002002 for PO 4500012347 is blocked. The supplier invoice price appears higher than the PO price. Please identify the likely issue and the checks required.",
+    "reported_by": "USR-AP-01",
+    "related_objects": {
+      "invoice_number": "5100002002",
+      "po_number": "4500012347"
+    }
+  },
+  "mock_context": {
+    "po_unit_price": 500.0,
+    "invoice_unit_price": 620.0,
+    "currency": "USD",
+    "invoice_status": "BLOCKED",
+    "blocking_reason": "PRICE_DIFFERENCE_REVIEW_REQUIRED"
+  },
+  "expected": {
+    "status": "COMPLETED",
+    "module": "MM",
+    "process": "Invoice Verification",
+    "confidence": "HIGH",
+    "human_validation_required": false,
+    "evidence_ids": [
+      "KB-MM-005",
+      "KB-MM-006"
+    ],
+    "possible_cause": "The documented price difference is a supported diagnostic explanation for the invoice block."
+  },
+  "must_not": [
+    "Invent a configured price tolerance.",
+    "Claim that the invoice was released.",
+    "Claim that the PO price was changed."
+  ]
+}

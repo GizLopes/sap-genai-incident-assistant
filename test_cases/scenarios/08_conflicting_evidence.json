@@ -1,0 +1,44 @@
+{
+  "scenario_id": "SCN-008",
+  "ticket_id": "TKT-008",
+  "name": "Conflicting invoice evidence",
+  "category": "CONFLICTING_EVIDENCE",
+  "objective": "Validate that conflicting evidence triggers human review instead of arbitrary source selection.",
+  "input": {
+    "ticket": "Invoice 5100002002 is blocked, but a support note provided with the ticket says there is no price difference for this invoice. Please determine the cause.",
+    "reported_by": "USR-AP-01",
+    "related_objects": {
+      "invoice_number": "5100002002",
+      "po_number": "4500012347"
+    },
+    "additional_evidence": {
+      "source": "ticket_attachment",
+      "statement": "There is no price difference between the purchase order and invoice."
+    }
+  },
+  "mock_context": {
+    "po_unit_price": 500.0,
+    "invoice_unit_price": 620.0,
+    "currency": "USD",
+    "invoice_status": "BLOCKED",
+    "blocking_reason": "PRICE_DIFFERENCE_REVIEW_REQUIRED"
+  },
+  "expected": {
+    "status": "HUMAN_VALIDATION_REQUIRED",
+    "module": "MM",
+    "process": "Invoice Verification",
+    "confidence": "LOW",
+    "human_validation_required": true,
+    "conflicting_evidence": true,
+    "evidence_ids": [
+      "KB-MM-005",
+      "KB-MM-006",
+      "POLICY-ESC-001"
+    ]
+  },
+  "must_not": [
+    "Arbitrarily declare the ticket attachment incorrect.",
+    "Arbitrarily declare the mock SAP data incorrect.",
+    "Confirm a root cause before resolving the evidence conflict."
+  ]
+}

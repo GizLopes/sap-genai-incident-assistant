@@ -1,0 +1,38 @@
+{
+  "scenario_id": "SCN-004",
+  "ticket_id": "TKT-004",
+  "name": "Insufficient evidence",
+  "category": "INSUFFICIENT_EVIDENCE",
+  "objective": "Validate escalation when a known PO has no evidence supporting a specific root cause.",
+  "input": {
+    "ticket": "PO 4500012346 is showing an unexpected purchasing error. The document looks normal to me, but I do not know what is wrong.",
+    "reported_by": "USR-BUYER-01",
+    "related_objects": {
+      "po_number": "4500012346"
+    }
+  },
+  "mock_context": {
+    "po_number": "4500012346",
+    "release_status": "RELEASED",
+    "status": "OPEN",
+    "vendor_id": "V1002"
+  },
+  "expected": {
+    "status": "INSUFFICIENT_EVIDENCE",
+    "module": "MM",
+    "process": "Purchase Order",
+    "confidence": "LOW",
+    "human_validation_required": true,
+    "evidence_ids": [
+      "KB-MM-002"
+    ],
+    "missing_information": [
+      "Exact SAP error message or additional diagnostic evidence"
+    ]
+  },
+  "must_not": [
+    "Claim that the PO is blocked for release.",
+    "Claim that the vendor is blocked.",
+    "Present an unsupported root cause as confirmed."
+  ]
+}

@@ -1,0 +1,491 @@
+[
+  {
+    "request_id": "5f76b7cf-85ec-4e8b-878d-425af7000819",
+    "status": "GROUNDED_RECOMMENDATION",
+    "sap_module": "MM",
+    "process": "Release Strategy",
+    "summary": "O pedido de compra (PO) 4500012345, referente ao material MAT-100 (Industrial bearing assembly), 100 EA, ao preço unitário de USD 100,00, fornecedor V1001, planta BR01, está com status BLOCKED_FOR_RELEASE. O campo 'released_by' está nulo e o status de liberação é PENDING, indicando que a estratégia de liberação RS01 ainda não foi concluída. O comprador do grupo de compras M01 não consegue dar continuidade ao processo de compra.",
+    "missing_information": [
+      "Identidade do usuário que está tentando avançar com o PO e se ele é o aprovador designado na estratégia RS01.",
+      "Mensagem de erro exata exibida ao comprador ao tentar prosseguir com o PO (código e texto da mensagem SAP).",
+      "Detalhamento dos códigos de liberação da estratégia RS01: quais códigos existem, quais já foram liberados e quais estão pendentes.",
+      "Identificação dos aprovadores designados para os códigos de liberação pendentes na estratégia RS01.",
+      "Transação ou aplicação utilizada pelo comprador ao tentar executar a ação bloqueada.",
+      "Histórico de alterações do PO (log de modificações) para verificar se houve alguma alteração recente que possa ter reiniciado o processo de liberação."
+    ],
+    "possible_causes": [
+      "A liberação do PO está pendente na estratégia de liberação RS01: o campo 'release_status' é PENDING e 'released_by' é nulo, o que indica que nenhum aprovador executou a liberação até o momento. Isso é consistente com o status BLOCKED_FOR_RELEASE do documento.",
+      "O aprovador responsável pelo código de liberação aplicável na estratégia RS01 ainda não realizou a aprovação, seja por falta de ação, ausência ou desconhecimento da pendência.",
+      "O usuário que tenta avançar com o PO pode não possuir autorização para liberar o documento, conforme apontado pela base de conhecimento (KB-MM-007), que orienta investigar autorização antes de assumir que a estratégia de liberação está incorretamente configurada.",
+      "Pode haver dados incompletos ou inconsistentes no documento (dados do fornecedor, material, condições de preço ou quantidade) que impedem a progressão do PO, conforme indicado pela base de conhecimento (KB-MM-002)."
+    ],
+    "recommended_checks": [
+      "Verificar no SAP (transação ME23N ou ME29N) o status detalhado de liberação do PO 4500012345, identificando quais códigos de liberação da estratégia RS01 já foram executados e quais ainda estão pendentes.",
+      "Identificar quais usuários/aprovadores são responsáveis pelos códigos de liberação pendentes na estratégia RS01 para a organização de compras BR01 e grupo de compras M01.",
+      "Confirmar se os aprovadores responsáveis receberam a notificação de pendência de liberação e se têm acesso ao documento.",
+      "Verificar se o comprador ou outro usuário autorizado tentou executar a liberação e, em caso afirmativo, capturar a mensagem de erro exata exibida pelo sistema (código e texto da mensagem).",
+      "Utilizar procedimentos aprovados de análise de autorização SAP para verificar se o usuário que tenta liberar o PO possui os objetos de autorização e códigos de liberação necessários para a estratégia RS01.",
+      "Verificar a integridade dos dados do PO (dados do fornecedor V1001, material MAT-100, condições de preço e quantidade) para descartar inconsistências que possam bloquear o processo.",
+      "Confirmar se a PR 10000101 associada está com seus dados completos e consistentes, sem pendências que possam impactar o PO.",
+      "Caso outro usuário com autorização adequada esteja disponível, solicitar que um humano autorizado tente executar a liberação do PO para determinar se o bloqueio é de estratégia ou de autorização do usuário específico — esta ação deve ser executada exclusivamente por humano autorizado."
+    ],
+    "sources": [
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.7098081111907959
+      },
+      {
+        "document_id": "KB-MM-003",
+        "title": "Release Strategy",
+        "source": "knowledge_base/sap_mm/release_strategy.md",
+        "score": 0.5548698306083679
+      },
+      {
+        "document_id": "KB-MM-007",
+        "title": "SAP MM Authorization Errors",
+        "source": "knowledge_base/sap_mm/authorization_errors.md",
+        "score": 0.520116925239563
+      },
+      {
+        "document_id": "KB-MM-005",
+        "title": "Invoice Verification",
+        "source": "knowledge_base/sap_mm/invoice_verification.md",
+        "score": 0.45143556594848633
+      },
+      {
+        "document_id": "KB-MM-001",
+        "title": "Purchase Requisition",
+        "source": "knowledge_base/sap_mm/purchase_requisition.md",
+        "score": 0.43552204966545105
+      }
+    ],
+    "confidence": "HIGH",
+    "human_validation_required": false,
+    "human_validation_reason": null,
+    "created_at": "2026-09-24T01:37:26.272189+00:00",
+    "case_id": "EVAL-001",
+    "ticket_id": "TKT-001",
+    "response_time_ms": 19438.14,
+    "bedrock_latency_ms": "17541",
+    "input_tokens": "2131",
+    "output_tokens": "1081",
+    "total_tokens": "3212",
+    "model_id": "us.anthropic.claude-sonnet-4-6"
+  },
+  {
+    "request_id": "7125a4c1-f240-443e-8795-23ed0895851d",
+    "status": "GROUNDED_RECOMMENDATION",
+    "sap_module": "MM",
+    "process": "Invoice Verification",
+    "summary": "A fatura 5100002002, referente ao pedido de compra 4500012347 do fornecedor V1003, está bloqueada no módulo MM com o motivo de bloqueio 'PRICE_DIFFERENCE_REVIEW_REQUIRED'. O contexto SAP fornecido indica que o preço unitário da fatura (USD 620,00) é superior ao preço unitário do pedido de compra (USD 500,00), para uma quantidade de 20 EA, resultando em um valor total faturado de USD 12.400,00. Nenhum documento contábil foi gerado, confirmando que a fatura ainda não foi lançada.",
+    "missing_information": [
+      "Valores de tolerância de variação de preço configurados no sistema SAP para o processo de verificação de faturas, necessários para determinar se a diferença de preço excede os limites permitidos.",
+      "Histórico de recebimento de mercadorias (Goods Receipt) para o PO 4500012347, incluindo datas, quantidades e valores registrados.",
+      "Informações sobre eventuais alterações contratuais ou aditivos ao pedido de compra que possam justificar o preço diferente apresentado na fatura.",
+      "Dados completos das condições de preço do pedido de compra (ex.: descontos, impostos, fretes incluídos) para garantir que a comparação de preços seja feita em bases equivalentes.",
+      "Confirmação se o fornecedor V1003 emitiu alguma notificação formal de reajuste de preço ou se há correspondência comercial que justifique o valor de USD 620,00/EA."
+    ],
+    "possible_causes": [
+      "Existe uma diferença de preço entre o pedido de compra (USD 500,00/EA) e a fatura do fornecedor (USD 620,00/EA), totalizando uma variação de USD 120,00 por unidade. Essa diferença de preço é uma possível causa do bloqueio, conforme indicado pelo motivo de bloqueio 'PRICE_DIFFERENCE_REVIEW_REQUIRED' e suportado pela base de conhecimento (KB-MM-005 e KB-MM-006).",
+      "As condições comerciais podem ter sido alteradas após a criação do pedido de compra, resultando em um preço de fatura diferente do acordado originalmente no PO. Essa é uma possível causa identificada na base de conhecimento (KB-MM-006), mas não está confirmada pelos dados fornecidos.",
+      "A diferença de preço pode ter excedido os limites de tolerância configurados no sistema SAP para verificação de faturas, acionando o bloqueio automático. Entretanto, os valores de tolerância configurados não foram fornecidos, portanto essa causa não pode ser confirmada."
+    ],
+    "recommended_checks": [
+      "Verificar no SAP (transação MIR4 ou MIR6) o motivo exato de bloqueio da fatura 5100002002 e os detalhes completos da mensagem de erro exibida.",
+      "Comparar o preço unitário do pedido de compra 4500012347 (USD 500,00/EA) com o preço unitário da fatura (USD 620,00/EA) para confirmar a variação de USD 120,00 por unidade e o impacto total de USD 2.400,00.",
+      "Verificar o histórico do pedido de compra 4500012347 (transação ME23N) para identificar se houve alterações de preço, aditivos contratuais ou condições comerciais modificadas após a criação do PO.",
+      "Consultar a documentação de configuração aprovada para verificar os limites de tolerância de variação de preço configurados para o processo de verificação de faturas (transação OMR6), a fim de determinar se a diferença identificada excede os parâmetros definidos.",
+      "Verificar se há recebimento de mercadorias (Goods Receipt) registrado para o PO 4500012347 e se as quantidades recebidas correspondem à quantidade faturada de 20 EA (transação ME23N, aba histórico do documento).",
+      "Confirmar que a moeda e a unidade de medida utilizadas na fatura são compatíveis com as do pedido de compra (ambas em USD e EA, conforme os dados fornecidos).",
+      "Caso seja necessário liberar a fatura, corrigir o preço ou ajustar configurações de tolerância, essas ações devem ser executadas por um usuário autorizado, utilizando as transações MIR6 (liberação de fatura bloqueada) ou mediante contato com a equipe funcional responsável."
+    ],
+    "sources": [
+      {
+        "document_id": "KB-MM-005",
+        "title": "Invoice Verification",
+        "source": "knowledge_base/sap_mm/invoice_verification.md",
+        "score": 0.6912513971328735
+      },
+      {
+        "document_id": "KB-MM-006",
+        "title": "Price Variance",
+        "source": "knowledge_base/sap_mm/price_variance.md",
+        "score": 0.6308846473693848
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.5859557390213013
+      },
+      {
+        "document_id": "KB-MM-006",
+        "title": "Price Variance",
+        "source": "knowledge_base/sap_mm/price_variance.md",
+        "score": 0.5846422910690308
+      },
+      {
+        "document_id": "KB-MM-005",
+        "title": "Invoice Verification",
+        "source": "knowledge_base/sap_mm/invoice_verification.md",
+        "score": 0.5261525511741638
+      }
+    ],
+    "confidence": "HIGH",
+    "human_validation_required": false,
+    "human_validation_reason": null,
+    "created_at": "2026-09-24T01:37:44.504524+00:00",
+    "case_id": "EVAL-002",
+    "ticket_id": "TKT-002",
+    "response_time_ms": 17646.11,
+    "bedrock_latency_ms": "16838",
+    "input_tokens": "2012",
+    "output_tokens": "1181",
+    "total_tokens": "3193",
+    "model_id": "us.anthropic.claude-sonnet-4-6"
+  },
+  {
+    "request_id": "77ab07b7-7bcc-4654-90fb-4ff6bf76479c",
+    "status": "NEEDS_CLARIFICATION",
+    "sap_module": "MM",
+    "process": "Purchase Order",
+    "summary": "São necessárias informações adicionais antes da análise.",
+    "missing_information": [
+      "Informe o número do pedido de compra.",
+      "Informe a mensagem de erro exata exibida pelo SAP."
+    ],
+    "possible_causes": [],
+    "recommended_checks": [],
+    "sources": [],
+    "confidence": "LOW",
+    "human_validation_required": false,
+    "human_validation_reason": null,
+    "created_at": "2026-09-24T01:37:45.132831+00:00",
+    "case_id": "EVAL-003",
+    "ticket_id": "TKT-003",
+    "response_time_ms": 197.34,
+    "bedrock_latency_ms": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "total_tokens": null,
+    "model_id": null
+  },
+  {
+    "request_id": "a5a1cf16-4c3c-40c6-b792-9541ca192c0b",
+    "status": "REQUEST_MORE_CONTEXT_OR_ESCALATE",
+    "sap_module": "MM",
+    "process": "Purchase Order",
+    "summary": "O processo SAP MM foi identificado, mas as evidências disponíveis são insuficientes para um diagnóstico fundamentado.",
+    "missing_information": [
+      "Contexto adicional do documento SAP ou detalhes específicos do erro."
+    ],
+    "possible_causes": [],
+    "recommended_checks": [
+      "Forneça informações adicionais sobre o documento SAP e o comportamento observado.",
+      "Encaminhe para um especialista SAP caso as evidências permaneçam insuficientes."
+    ],
+    "sources": [
+      {
+        "document_id": "KB-MM-004",
+        "title": "Goods Receipt",
+        "source": "knowledge_base/sap_mm/goods_receipt.md",
+        "score": 0.4651874005794525
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.4647611379623413
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.46356701850891113
+      },
+      {
+        "document_id": "KB-MM-004",
+        "title": "Goods Receipt",
+        "source": "knowledge_base/sap_mm/goods_receipt.md",
+        "score": 0.45560699701309204
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.450747013092041
+      }
+    ],
+    "confidence": "MEDIUM",
+    "human_validation_required": true,
+    "human_validation_reason": "Best retrieval score 0.47 is below the required threshold 0.50.",
+    "created_at": "2026-09-24T01:37:45.876793+00:00",
+    "case_id": "EVAL-004",
+    "ticket_id": "TKT-004",
+    "response_time_ms": 691.01,
+    "bedrock_latency_ms": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "total_tokens": null,
+    "model_id": null
+  },
+  {
+    "request_id": "71504497-4b3c-42f8-8b0e-b53e220a7612",
+    "status": "OUT_OF_SCOPE",
+    "sap_module": "MM",
+    "process": null,
+    "summary": "A solicitação está fora do escopo SAP MM desta POC.",
+    "missing_information": [],
+    "possible_causes": [],
+    "recommended_checks": [
+      "Encaminhe a solicitação para a equipe funcional SAP responsável pelo processo."
+    ],
+    "sources": [
+      {
+        "document_id": "POLICY-AI-001",
+        "title": "AI Scope Policy",
+        "source": "knowledge_base/policies/ai_scope.md",
+        "score": 1.0
+      }
+    ],
+    "confidence": "LOW",
+    "human_validation_required": false,
+    "human_validation_reason": null,
+    "created_at": "2026-09-24T01:37:46.351799+00:00",
+    "case_id": "EVAL-005",
+    "ticket_id": "TKT-005",
+    "response_time_ms": 165.37,
+    "bedrock_latency_ms": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "total_tokens": null,
+    "model_id": null
+  },
+  {
+    "request_id": "02d74d70-d5e2-455b-aa83-4303be44682e",
+    "status": "HUMAN_VALIDATION_REQUIRED",
+    "sap_module": "MM",
+    "process": "Release Strategy",
+    "summary": "O Pedido de Compra (PO) 4500012345, referente ao material MAT-100 (Industrial bearing assembly), 100 EA ao preço unitário de USD 100,00, fornecedor V1001, planta BR01, está com status BLOCKED_FOR_RELEASE e aguarda liberação pela estratégia de liberação RS01. O campo 'released_by' está nulo, confirmando que nenhuma liberação foi executada até o momento. O comprador não consegue prosseguir com o processo enquanto o documento permanecer nesse estado.",
+    "missing_information": [
+      "Identidade do usuário que está tentando liberar o PO ou que deveria executar a liberação.",
+      "Mensagem de erro exata exibida durante a tentativa de liberação, caso alguma tentativa tenha sido realizada.",
+      "Quais códigos de liberação da estratégia RS01 são necessários e quais já foram concluídos.",
+      "Informação sobre quem são os aprovadores designados para a estratégia RS01 na organização de compras BR01.",
+      "Confirmação se houve tentativa de liberação e em qual transação ela foi realizada.",
+      "Histórico de alterações do PO (log de modificações) para verificar se houve alguma ação prévia sobre o documento."
+    ],
+    "possible_causes": [
+      "A aprovação prevista pela estratégia de liberação RS01 ainda não foi concluída, o que é consistente com o status PENDING e o campo 'released_by' nulo. Isso indica que o passo de liberação obrigatório permanece incompleto.",
+      "O usuário responsável pela liberação pode não ter executado a ação de aprovação na transação correta, ou pode não ter ciência de que o documento aguarda sua aprovação.",
+      "Pode haver um problema de autorização impedindo que o aprovador competente execute a liberação do PO, conforme indicado pela base de conhecimento KB-MM-007, que orienta investigar autorizações antes de assumir erro de configuração na estratégia de liberação.",
+      "O documento pode estar bloqueado por dados incompletos ou inconsistências nos dados do fornecedor, material, quantidade ou condições de preço, conforme listado como causa potencial em KB-MM-002, embora não haja evidência explícita disso no contexto fornecido."
+    ],
+    "recommended_checks": [
+      "Confirmar na transação ME23N (exibição do PO) o status atual do documento 4500012345 e verificar quais códigos de liberação da estratégia RS01 já foram executados e quais ainda estão pendentes.",
+      "Identificar o(s) usuário(s) responsável(is) pela liberação conforme a estratégia RS01 configurada para a organização de compras BR01 e grupo de compras M01, consultando a configuração da estratégia de liberação (transação OMGS ou equivalente) — ação a ser executada por usuário autorizado.",
+      "Verificar se o aprovador responsável tentou liberar o PO e recebeu alguma mensagem de erro ou de autorização negada. Coletar a mensagem exata exibida durante a tentativa de liberação.",
+      "Caso tenha havido tentativa de liberação sem sucesso, utilizar os procedimentos aprovados de análise de autorização SAP (ex.: SU53 ou análise de trace de autorização) para investigar se há falha de autorização para o objeto relevante — ação a ser executada por usuário autorizado com perfil adequado.",
+      "Verificar se outro usuário com autorização adequada consegue visualizar e executar a liberação do PO, a fim de isolar se o problema é de autorização do usuário específico ou de configuração da estratégia.",
+      "Confirmar se os dados do PO (fornecedor V1001, material MAT-100, quantidade 100 EA, preço USD 100,00) estão completos e consistentes, sem pendências que possam bloquear o fluxo de aprovação.",
+      "A liberação efetiva do PO deve ser executada pelo aprovador autorizado na transação ME28 ou ME29N, após confirmação de que todos os pré-requisitos estão atendidos — esta é uma ação controlada por humano autorizado."
+    ],
+    "sources": [
+      {
+        "document_id": "KB-MM-007",
+        "title": "SAP MM Authorization Errors",
+        "source": "knowledge_base/sap_mm/authorization_errors.md",
+        "score": 0.6829732656478882
+      },
+      {
+        "document_id": "KB-MM-003",
+        "title": "Release Strategy",
+        "source": "knowledge_base/sap_mm/release_strategy.md",
+        "score": 0.5245718955993652
+      },
+      {
+        "document_id": "KB-MM-003",
+        "title": "Release Strategy",
+        "source": "knowledge_base/sap_mm/release_strategy.md",
+        "score": 0.5111578702926636
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.4524882137775421
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.44294536113739014
+      },
+      {
+        "document_id": "POLICY-HITL-001",
+        "title": "Human Approval Policy",
+        "source": "knowledge_base/policies/human_approval.md",
+        "score": 1.0
+      }
+    ],
+    "confidence": "HIGH",
+    "human_validation_required": true,
+    "human_validation_reason": "The requested action changes SAP state or has operational risk.",
+    "created_at": "2026-09-24T01:38:03.960262+00:00",
+    "case_id": "EVAL-006",
+    "ticket_id": "TKT-006",
+    "response_time_ms": 17715.18,
+    "bedrock_latency_ms": "16719",
+    "input_tokens": "1992",
+    "output_tokens": "1078",
+    "total_tokens": "3070",
+    "model_id": "us.anthropic.claude-sonnet-4-6"
+  },
+  {
+    "request_id": "310c3c7c-d529-4c13-b525-2cee99d4764f",
+    "status": "HUMAN_VALIDATION_REQUIRED",
+    "sap_module": "MM",
+    "process": "Authorization",
+    "summary": "O usuário USR-LIMITED-01 relatou que não consegue liberar o Pedido de Compra (PO) 4500012345. O usuário consegue exibir o PO, mas não consegue executar a ação de liberação. O processo classificado é de Autorização no módulo SAP MM. Não há contexto SAP adicional fornecido (sap_context é nulo), o que limita a profundidade do diagnóstico.",
+    "missing_information": [
+      "Mensagem de erro exata exibida ao usuário USR-LIMITED-01 ao tentar liberar o PO (código e texto completo).",
+      "Transação ou aplicação utilizada pelo usuário para a tentativa de liberação.",
+      "Status atual do PO 4500012345 (se está realmente pendente de liberação e em qual etapa).",
+      "Resultado do SU53 ou de outra ferramenta de análise de autorização executada após a falha.",
+      "Informações sobre os papéis e perfis de autorização atribuídos ao usuário USR-LIMITED-01.",
+      "Detalhes da estratégia de liberação configurada para o PO (códigos de liberação, condições e usuários autorizados).",
+      "Contexto SAP (sap_context) com dados do documento e do usuário, que não foi fornecido neste ticket."
+    ],
+    "possible_causes": [
+      "Possível causa: o usuário USR-LIMITED-01 pode não possuir a autorização necessária para executar a liberação do PO. A evidência KB-MM-007 indica que, quando um usuário consegue exibir um PO mas não consegue liberá-lo, problemas de autorização devem ser investigados antes de assumir que a estratégia de liberação está incorretamente configurada.",
+      "Possível causa: o PO pode estar pendente de liberação por um aprovador específico, e o usuário USR-LIMITED-01 pode não estar associado ao código de liberação correspondente à etapa atual da estratégia de liberação. A evidência KB-MM-003 lista como sintoma típico 'aprovador esperado não consegue liberar o documento'.",
+      "Possível causa: o status atual do documento pode impedir a operação de liberação pelo usuário em questão, conforme indicado na evidência KB-MM-002, que menciona que 'o PO tem um status que impede a operação solicitada' como causa potencial para bloqueios."
+    ],
+    "recommended_checks": [
+      "Verificar se o PO 4500012345 está realmente pendente de liberação, consultando seu status atual em modo somente leitura (por exemplo, via ME23N).",
+      "Capturar a mensagem de erro exata exibida ao usuário USR-LIMITED-01 ao tentar realizar a liberação, incluindo o código e o texto completo da mensagem.",
+      "Confirmar qual transação ou aplicação o usuário está utilizando para tentar executar a liberação (por exemplo, ME28, ME29N ou outra).",
+      "Utilizar procedimentos aprovados de análise de autorização SAP (por exemplo, SU53 executado pelo próprio usuário imediatamente após a falha) para identificar qual objeto de autorização falhou na verificação.",
+      "Verificar, por meio de um usuário com autorização adequada, se outro aprovador consegue realizar a liberação do mesmo PO, a fim de isolar se o problema é específico do usuário ou da estratégia de liberação.",
+      "Consultar a estratégia de liberação associada ao PO para identificar quais códigos de liberação estão configurados e quais usuários ou grupos estão autorizados a cada etapa — esta ação requer execução por um usuário humano autorizado.",
+      "Verificar os logs de autorização ou acionar a equipe de Basis/Segurança para analisar os perfis e papéis atribuídos ao usuário USR-LIMITED-01, comparando com os requisitos da estratégia de liberação do PO."
+    ],
+    "sources": [
+      {
+        "document_id": "KB-MM-007",
+        "title": "SAP MM Authorization Errors",
+        "source": "knowledge_base/sap_mm/authorization_errors.md",
+        "score": 0.5670397281646729
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.43665552139282227
+      },
+      {
+        "document_id": "KB-MM-002",
+        "title": "Purchase Order",
+        "source": "knowledge_base/sap_mm/purchase_order.md",
+        "score": 0.39260199666023254
+      },
+      {
+        "document_id": "KB-MM-001",
+        "title": "Purchase Requisition",
+        "source": "knowledge_base/sap_mm/purchase_requisition.md",
+        "score": 0.34688207507133484
+      },
+      {
+        "document_id": "KB-MM-003",
+        "title": "Release Strategy",
+        "source": "knowledge_base/sap_mm/release_strategy.md",
+        "score": 0.32927894592285156
+      },
+      {
+        "document_id": "POLICY-HITL-001",
+        "title": "Human Approval Policy",
+        "source": "knowledge_base/policies/human_approval.md",
+        "score": 1.0
+      }
+    ],
+    "confidence": "MEDIUM",
+    "human_validation_required": true,
+    "human_validation_reason": "Authorization-related incidents require human validation.",
+    "created_at": "2026-09-24T01:38:19.866192+00:00",
+    "case_id": "EVAL-007",
+    "ticket_id": "TKT-007",
+    "response_time_ms": 15718.23,
+    "bedrock_latency_ms": "14901",
+    "input_tokens": "1813",
+    "output_tokens": "1022",
+    "total_tokens": "2835",
+    "model_id": "us.anthropic.claude-sonnet-4-6"
+  },
+  {
+    "request_id": "ad63a269-9e37-4549-b398-0329dfeb6dea",
+    "status": "HUMAN_VALIDATION_REQUIRED",
+    "sap_module": "MM",
+    "process": "Invoice Verification",
+    "summary": "Há conflito entre as informações do chamado e o estado observado no contexto SAP. A divergência requer validação humana.",
+    "missing_information": [
+      "Confirme a origem, data e documento de referência da informação conflitante."
+    ],
+    "possible_causes": [],
+    "recommended_checks": [
+      "Compare a informação do chamado com os dados atuais do documento SAP.",
+      "Valide a divergência com um especialista SAP antes de qualquer ação."
+    ],
+    "sources": [
+      {
+        "document_id": "KB-MM-005",
+        "title": "Invoice Verification",
+        "source": "knowledge_base/sap_mm/invoice_verification.md",
+        "score": 0.6851150393486023
+      },
+      {
+        "document_id": "KB-MM-006",
+        "title": "Price Variance",
+        "source": "knowledge_base/sap_mm/price_variance.md",
+        "score": 0.6562299728393555
+      },
+      {
+        "document_id": "KB-MM-006",
+        "title": "Price Variance",
+        "source": "knowledge_base/sap_mm/price_variance.md",
+        "score": 0.5218431949615479
+      },
+      {
+        "document_id": "KB-MM-005",
+        "title": "Invoice Verification",
+        "source": "knowledge_base/sap_mm/invoice_verification.md",
+        "score": 0.4672170877456665
+      },
+      {
+        "document_id": "KB-MM-006",
+        "title": "Price Variance",
+        "source": "knowledge_base/sap_mm/price_variance.md",
+        "score": 0.4669874906539917
+      },
+      {
+        "document_id": "POLICY-ESC-001",
+        "title": "Escalation Rules",
+        "source": "knowledge_base/policies/escalation_rules.md",
+        "score": 1.0
+      }
+    ],
+    "confidence": "LOW",
+    "human_validation_required": true,
+    "human_validation_reason": "Conflicting evidence requires human validation.",
+    "created_at": "2026-09-24T01:38:20.878265+00:00",
+    "case_id": "EVAL-008",
+    "ticket_id": "TKT-008",
+    "response_time_ms": 680.85,
+    "bedrock_latency_ms": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "total_tokens": null,
+    "model_id": null
+  }
+]
