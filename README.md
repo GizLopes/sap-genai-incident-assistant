@@ -47,9 +47,12 @@ The knowledge corpus covers:
 The prototype avoids assumptions about customer-specific SAP configuration such as tolerance limits, release thresholds, approvers, roles, authorization objects, account determination, or posting configuration unless supplied evidence explicitly supports them.
 
 ## 4. Solution Overview
+
+The following diagram represents the proposed AWS deployment architecture for the POC. The prototype can be executed locally and does not require an EC2 deployment for evaluation.
+
 ```text
 SAP Support User
-  -> Streamlit UI on Amazon EC2
+  -> Streamlit UI (local runtime or proposed Amazon EC2 deployment)
       -> Scope Guard
       -> Ticket Classification
       -> SAP Mock Read Interface
@@ -73,7 +76,7 @@ Application
       -> request, response, source, model and trace audit records
 ```
 
-The EC2 instance hosts the Streamlit UI, Python application, and local FAISS index. Amazon Bedrock provides model inference and embeddings. Amazon DynamoDB stores audit records.
+In the proposed AWS deployment, the EC2 instance hosts the Streamlit UI, Python application, and local FAISS index. The prototype may also run locally. Amazon Bedrock provides model inference and embeddings, and Amazon DynamoDB stores audit records.
 
 ## 5. Architecture
 The architecture is intentionally small for the POC:
@@ -465,8 +468,8 @@ Default URL:
 http://localhost:8501
 ```
 
-## 16. Running on EC2
-Infrastructure support files are under `infrastructure/`.
+## 16. Optional EC2 Deployment
+EC2 deployment is optional for this POC. Infrastructure support files are provided under `infrastructure/` to demonstrate how the prototype can be hosted on AWS.
 
 The bootstrap script targets Amazon Linux 2023:
 
@@ -490,7 +493,7 @@ sudo journalctl -u sap-genai-assistant -f
 
 The EC2 Security Group should restrict inbound access to the intended demo users or network range.
 
-The EC2 IAM role requires only the AWS actions used by the current implementation, including Bedrock model invocation, S3 read access when knowledge documents are sourced from S3, and DynamoDB audit access. Permissions associated only with Amazon Bedrock Knowledge Bases are not required by the current FAISS architecture.
+The EC2 IAM role requires only the AWS actions used by the deployed runtime, including Bedrock model invocation and DynamoDB audit access. S3 access is required only for an optional corpus-upload or synchronization workflow and is not required by the local FAISS runtime. Permissions associated only with Amazon Bedrock Knowledge Bases are not required by the current architecture.
 
 ## 17. Knowledge Corpus and FAISS Index
 The repository knowledge corpus is stored under:
@@ -504,7 +507,7 @@ Amazon S3 may be used as the source repository for the same curated documents. T
 Upload the knowledge corpus to the configured S3 bucket when required:
 
 ```bash
-python scripts/ingest_knowledge_base.py \
+python scripts/upload_knowledge_corpus.py \
   --bucket <knowledge-bucket> \
   --prefix sap-genai-assistant/knowledge_base
 ```
@@ -527,7 +530,7 @@ The current corpus build produced 87 indexed vectors with 1024 dimensions.
 A dry run of the S3 ingestion utility is available when supported by the script:
 
 ```bash
-python scripts/ingest_knowledge_base.py \
+python scripts/upload_knowledge_corpus.py \
   --bucket example-bucket \
   --dry-run
 ```

@@ -133,14 +133,14 @@ s += [
         160,
         320,
         76,
-        "Streamlit UI · Amazon EC2",
+        "Streamlit UI",
         ("Ticket input · Evidence · Confidence",),
         BLUE,
         ORANGE,
     ),
     box(1180, 170, 290, 58, "SAP Specialist", (), WHITE, DARK),
 
-    section(60, 285, 1480, 250, "Application & Control Layer · Amazon EC2"),
+    section(60, 285, 1480, 250, "Application & Control Layer"),
     box(
         85,
         340,
@@ -238,7 +238,7 @@ s += [
         635,
         250,
         165,
-        "FAISS · Amazon EC2",
+        "FAISS",
         (
             "Local vector index",
             "Ranked SAP MM evidence",
