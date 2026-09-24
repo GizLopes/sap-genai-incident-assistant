@@ -8,7 +8,7 @@
         "bedrock:InvokeModel"
       ],
       "Resource": [
-        "arn:aws:bedrock:us-east-1:905418324650:inference-profile/us.anthropic.claude-sonnet-4-6",
+        "arn:aws:bedrock:us-east-1:INSERT YOUR ACCOUNT:inference-profile/us.anthropic.claude-sonnet-4-6",
         "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-sonnet-4-6",
         "arn:aws:bedrock:us-east-2::foundation-model/anthropic.claude-sonnet-4-6",
         "arn:aws:bedrock:us-west-2::foundation-model/anthropic.claude-sonnet-4-6"
@@ -32,7 +32,7 @@
         "dynamodb:GetItem"
       ],
       "Resource": [
-        "arn:aws:dynamodb:us-east-1:905418324650:table/sap-genai-assistant-audit"
+        "arn:aws:dynamodb:us-east-1:INSERT YOUR ACCOUNT:table/sap-genai-assistant-audit"
       ]
     }
   ]
